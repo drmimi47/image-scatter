@@ -9,6 +9,7 @@ let frame;                    // { outer, inner } — recomputed on resize
 let isSettled       = false;
 let scatterGen      = 0;      // incremented each Generate; cancels in-flight scatter
 let showGroupLabels  = false; // toggled by the Group Number button
+let bwMode           = false; // toggled by the B&W button; respected by both render and export
 let groupTargets     = [];   // [{ label, x, y }, …] — set fresh each scatter
 let scatterComplete  = false; // true once the launch loop has finished
 const imageCache = new Map(); // path → HTMLImageElement
@@ -245,18 +246,17 @@ async function exportHighRes() {
   ctx.scale(exportScale, exportScale);
   ctx.translate(-frame.inner.x, -frame.inner.y);
 
-  // Draw cards (settled shadow only — no motion blur)
+  // Draw cards — apply grayscale filter if B&W mode is active
+  if (bwMode) ctx.filter = "grayscale(100%)";
   for (const { body, img, w, h } of bodies) {
     const { x, y } = body.position;
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(body.angle);
-    ctx.shadowColor   = "rgba(0,0,0,0.10)";
-    ctx.shadowBlur    = 8;
-    ctx.shadowOffsetY = 3;
     ctx.drawImage(img, -w / 2, -h / 2, w, h);
     ctx.restore();
   }
+  ctx.filter = "none";
 
   ctx.restore();
 
@@ -292,23 +292,17 @@ function drawScene() {
   canvas.clear();
   const ctx = canvas.ctx;
 
-  // Softer shadow once settled
-  const shadow = isSettled
-    ? { color: "rgba(0,0,0,0.10)", blur: 8,  offsetY: 3 }
-    : { color: "rgba(0,0,0,0.22)", blur: 20, offsetY: 7 };
-
+  if (bwMode) canvas.ctx.filter = "grayscale(100%)";
   for (const { body, img, w, h } of bodies) {
     const { x, y } = body.position;
 
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(body.angle);
-    ctx.shadowColor   = shadow.color;
-    ctx.shadowBlur    = shadow.blur;
-    ctx.shadowOffsetY = shadow.offsetY;
     ctx.drawImage(img, -w / 2, -h / 2, w, h);
     ctx.restore();
   }
+  ctx.filter = "none";
 
   // Frame outlines drawn last (on top of images)
   ctx.save();
@@ -385,6 +379,12 @@ function init() {
   document.getElementById("btn-export").addEventListener("click", exportHighRes);
   document.getElementById("btn-groups").addEventListener("click", () => {
     showGroupLabels = !showGroupLabels;
+    drawScene();
+  });
+
+  document.getElementById("btn-bw").addEventListener("click", () => {
+    bwMode = !bwMode;
+    document.getElementById("btn-bw").classList.toggle("active", bwMode);
     drawScene();
   });
 
