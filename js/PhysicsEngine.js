@@ -19,7 +19,14 @@ export class PhysicsEngine {
     this.world  = this.engine.world;
     this.runner = Runner.create();
 
+    // Maps each dynamic body → its full rendered image dimensions {imgW, imgH}.
+    // Used to clamp body positions so images never cross the inner-frame boundary.
+    this._bodyExtents = new Map();
+
     this._addBoundaries();
+
+    // Internal post-step clamp — runs before the external afterUpdate listeners.
+    Events.on(this.engine, "afterUpdate", () => this._clampBodies());
   }
 
   // ─── Boundaries ─────────────────────────────────────────────────────────────
@@ -106,7 +113,46 @@ export class PhysicsEngine {
     Body.setAngularVelocity(body, this._gaussian(0, 0.06));
 
     Composite.add(this.world, body);
+    this._bodyExtents.set(body, { imgW: cardW, imgH: cardH });
     return body;
+  }
+
+  // ─── Inner-frame boundary clamp ─────────────────────────────────────────────
+  // Runs after every physics step. Ensures no image corner crosses the inner-
+  // frame edge, regardless of how other bodies push this one against the wall.
+  // Uses the rotated AABB of the full rendered image (not the physics body),
+  // so the clamp accounts for the card's current angle.
+
+  _clampBodies() {
+    const { x: rx, y: ry, w: rw, h: rh } = this.rect;
+
+    for (const [body, { imgW, imgH }] of this._bodyExtents) {
+      const cos = Math.abs(Math.cos(body.angle));
+      const sin = Math.abs(Math.sin(body.angle));
+
+      // AABB half-extents of the rotated image rectangle.
+      const halfW = (imgW / 2) * cos + (imgH / 2) * sin;
+      const halfH = (imgW / 2) * sin + (imgH / 2) * cos;
+
+      const minX = rx + halfW;
+      const maxX = rx + rw - halfW;
+      const minY = ry + halfH;
+      const maxY = ry + rh - halfH;
+
+      const bx = body.position.x;
+      const by = body.position.y;
+      const cx = Math.max(minX, Math.min(maxX, bx));
+      const cy = Math.max(minY, Math.min(maxY, by));
+
+      if (cx !== bx || cy !== by) {
+        Body.setPosition(body, { x: cx, y: cy });
+        // Kill velocity component driving the body out of bounds.
+        Body.setVelocity(body, {
+          x: cx !== bx ? 0 : body.velocity.x,
+          y: cy !== by ? 0 : body.velocity.y,
+        });
+      }
+    }
   }
 
   // ─── Utility ─────────────────────────────────────────────────────────────────
@@ -114,6 +160,7 @@ export class PhysicsEngine {
   clearDynamic() {
     const dynamic = Composite.allBodies(this.world).filter(b => !b.isStatic);
     Composite.remove(this.world, dynamic);
+    this._bodyExtents.clear();
   }
 
   /** Fully tear down the engine — call before replacing with a new instance. */
@@ -122,6 +169,7 @@ export class PhysicsEngine {
     Composite.clear(this.world, false);
     Engine.clear(this.engine);
     Events.off(this.engine);
+    this._bodyExtents.clear();
   }
 
   start() { Runner.run(this.runner, this.engine); }

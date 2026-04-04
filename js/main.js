@@ -9,6 +9,7 @@ let frame;                    // { outer, inner } — recomputed on resize
 let isSettled       = false;
 let scatterGen      = 0;      // incremented each Generate; cancels in-flight scatter
 let showGroupLabels  = false; // toggled by the Groupings button
+let showFolds        = false; // toggled by the Folds button
 let groupTargets     = [];   // [{ label, x, y }, …] — set fresh each scatter
 let scatterComplete  = false; // true once the launch loop has finished
 const imageCache = new Map(); // path → HTMLImageElement
@@ -313,6 +314,7 @@ function drawScene() {
   ctx.restore();
 
   if (showGroupLabels) drawGroupLabels(ctx);
+  if (showFolds) drawFolds(ctx);
 }
 
 function drawGroupLabels(ctx) {
@@ -362,6 +364,32 @@ function drawGroupLabels(ctx) {
   ctx.restore();
 }
 
+function drawFolds(ctx) {
+  const { outer } = frame;
+  const cx = outer.x + outer.w / 2;
+  const cy = outer.y + outer.h / 2;
+
+  ctx.save();
+  ctx.shadowColor  = "transparent";
+  ctx.strokeStyle  = "rgba(80, 80, 80, 0.55)";
+  ctx.lineWidth    = 1;
+  ctx.setLineDash([6, 4]);
+
+  // Vertical fold line — top to bottom of outer frame
+  ctx.beginPath();
+  ctx.moveTo(cx, outer.y);
+  ctx.lineTo(cx, outer.y + outer.h);
+  ctx.stroke();
+
+  // Horizontal fold line — left to right of outer frame
+  ctx.beginPath();
+  ctx.moveTo(outer.x, cy);
+  ctx.lineTo(outer.x + outer.w, cy);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 function init() {
@@ -380,6 +408,13 @@ function init() {
   document.getElementById("btn-export").addEventListener("click", exportHighRes);
   document.getElementById("btn-groups").addEventListener("click", () => {
     showGroupLabels = !showGroupLabels;
+    document.getElementById("btn-groups").classList.toggle("active", showGroupLabels);
+    drawScene();
+  });
+
+  document.getElementById("btn-folds").addEventListener("click", () => {
+    showFolds = !showFolds;
+    document.getElementById("btn-folds").classList.toggle("active", showFolds);
     drawScene();
   });
 
