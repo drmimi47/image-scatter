@@ -8,8 +8,7 @@ let canvas, physics;
 let frame;                    // { outer, inner } — recomputed on resize
 let isSettled       = false;
 let scatterGen      = 0;      // incremented each Generate; cancels in-flight scatter
-let showGroupLabels  = false; // toggled by the Group Number button
-let bwMode           = false; // toggled by the B&W button; respected by both render and export
+let showGroupLabels  = false; // toggled by the Groupings button
 let groupTargets     = [];   // [{ label, x, y }, …] — set fresh each scatter
 let scatterComplete  = false; // true once the launch loop has finished
 const imageCache = new Map(); // path → HTMLImageElement
@@ -203,7 +202,7 @@ async function scatter() {
       const h = img.naturalHeight * imgScale;
 
       const body = physics.launchCardToTarget({ w, h, targetX: target.x, targetY: target.y });
-      bodies.push({ body, img, w, h });
+      bodies.push({ body, img, w, h, gi });
 
       await delay(TOSS_INTERVAL);
     }
@@ -246,8 +245,6 @@ async function exportHighRes() {
   ctx.scale(exportScale, exportScale);
   ctx.translate(-frame.inner.x, -frame.inner.y);
 
-  // Draw cards — apply grayscale filter if B&W mode is active
-  if (bwMode) ctx.filter = "grayscale(100%)";
   for (const { body, img, w, h } of bodies) {
     const { x, y } = body.position;
     ctx.save();
@@ -292,7 +289,6 @@ function drawScene() {
   canvas.clear();
   const ctx = canvas.ctx;
 
-  if (bwMode) canvas.ctx.filter = "grayscale(100%)";
   for (const { body, img, w, h } of bodies) {
     const { x, y } = body.position;
 
@@ -330,12 +326,17 @@ function drawGroupLabels(ctx) {
   ctx.shadowColor = "transparent";
   ctx.font        = FONT;
 
-  for (const { label, x, y } of groupTargets) {
-    // Split folder name on hyphens → wrap into lines of ≤ 3 words each.
-    const words = label.split("-");
-    const lines = [];
-    for (let i = 0; i < words.length; i += 3)
-      lines.push(words.slice(i, i + 3).join(" "));
+  for (let gi = 0; gi < groupTargets.length; gi++) {
+    const { label } = groupTargets[gi];
+
+    // Compute live centroid from current body positions for this group.
+    const groupBodies = bodies.filter(b => b.gi === gi);
+    if (groupBodies.length === 0) continue;
+    const x = groupBodies.reduce((s, b) => s + b.body.position.x, 0) / groupBodies.length;
+    const y = groupBodies.reduce((s, b) => s + b.body.position.y, 0) / groupBodies.length;
+
+    // Use the folder name as-is (e.g. "Building", "Light", …).
+    const lines = [label];
 
     // Measure the widest line to size the pill.
     const maxLineW = Math.max(...lines.map(l => ctx.measureText(l).width));
@@ -379,12 +380,6 @@ function init() {
   document.getElementById("btn-export").addEventListener("click", exportHighRes);
   document.getElementById("btn-groups").addEventListener("click", () => {
     showGroupLabels = !showGroupLabels;
-    drawScene();
-  });
-
-  document.getElementById("btn-bw").addEventListener("click", () => {
-    bwMode = !bwMode;
-    document.getElementById("btn-bw").classList.toggle("active", bwMode);
     drawScene();
   });
 

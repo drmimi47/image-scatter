@@ -1,55 +1,58 @@
 export const imageGroups = {
-  "group-relates-to-lights": [
-    { path: "images/group-relates-to-lights/Amelyn Ng_3.jpeg", scale: 0.4202, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-lights/Ellie Madsen_1.JPG", scale: 0.3776, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-lights/Hao Ni.jpeg", scale: 0.4323, aspectRatio: 1.9059 },
-    { path: "images/group-relates-to-lights/JiaLin Yue.jpeg", scale: 0.3324, aspectRatio: 0.9255 },
-    { path: "images/group-relates-to-lights/Mariami Maghlakelidze_1.jpg", scale: 0.5847, aspectRatio: 0.6369 },
-    { path: "images/group-relates-to-lights/Wyatt Kuebler.jpeg", scale: 0.4187, aspectRatio: 1.3328 },
-    { path: "images/group-relates-to-lights/Xinyu Yan_1.jpeg", scale: 0.5354, aspectRatio: 0.75 },
-    { path: "images/group-relates-to-lights/Xinyu Yan_2.jpeg", scale: 0.579, aspectRatio: 0.7497 }
+  "Building": [
+    { path: "images/Building/Amelyn4.png",                scale: 0.608,  aspectRatio: 1.0 },
+    { path: "images/Building/Ellie1.png",                 scale: 0.534,  aspectRatio: 1.0 },
+    { path: "images/Building/Jie En Lee1.png",            scale: 0.532,  aspectRatio: 1.0 },
+    { path: "images/Building/Kaushik Parashar1.png",      scale: 0.620,  aspectRatio: 1.0 },
+    { path: "images/Building/Lot-Ek.png",                 scale: 0.350,  aspectRatio: 1.0 },
+    { path: "images/Building/Lot-Ek2.png",                scale: 0.452,  aspectRatio: 1.0 },
+    { path: "images/Building/Lot-Ek3.png",                scale: 0.561,  aspectRatio: 1.0 },
+    { path: "images/Building/Matthew Chung Hei Wong1.png",scale: 0.519,  aspectRatio: 1.0 },
+    { path: "images/Building/Tianrun Li1.png",            scale: 0.511,  aspectRatio: 1.0 },
+    { path: "images/Building/Tianrun Li2.png",            scale: 0.454,  aspectRatio: 1.0 },
+    { path: "images/Building/Tianrun Li3.png",            scale: 0.407,  aspectRatio: 1.0 }
   ],
-  "group-relates-to-people-and-events": [
-    { path: "images/group-relates-to-people-and-events/Amelyn Ng_2.jpeg", scale: 0.5983, aspectRatio: 0.75 },
-    { path: "images/group-relates-to-people-and-events/Beside Submission - Roxana Liu.jpg", scale: 0.6182, aspectRatio: 0.7502 },
-    { path: "images/group-relates-to-people-and-events/Fion Li_1.jpg", scale: 0.5678, aspectRatio: 1.5078 },
-    { path: "images/group-relates-to-people-and-events/Fion Li_2.jpg", scale: 0.5135, aspectRatio: 0.6632 },
-    { path: "images/group-relates-to-people-and-events/IMG_9040 - Emily Brooks Geldermann.jpeg", scale: 0.5737, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-people-and-events/IMG_9043 - Emily Brooks Geldermann.jpeg", scale: 0.4203, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-people-and-events/Nicole Quah_1.jpg", scale: 0.221, aspectRatio: 0.7557 },
-    { path: "images/group-relates-to-people-and-events/Nicole Quah_2.jpg", scale: 0.22, aspectRatio: 0.7526 },
-    { path: "images/group-relates-to-people-and-events/xiaoxi chen_1.jpg", scale: 0.5844, aspectRatio: 0.7098 }
+  "Light": [
+    { path: "images/Light/Amelyn2.png",                   scale: 0.598,  aspectRatio: 1.0 },
+    { path: "images/Light/Hao Ni1.png",                   scale: 0.432,  aspectRatio: 1.0 },
+    { path: "images/Light/Jialin yue1.png",               scale: 0.332,  aspectRatio: 1.0 },
+    { path: "images/Light/Mariami Maghiakelidze1.png",     scale: 0.585,  aspectRatio: 1.0 },
+    { path: "images/Light/Xinyi Yan2.png",                 scale: 0.579,  aspectRatio: 1.0 }
   ],
-  "group-relates-to-the-build-enviroment": [
-    { path: "images/group-relates-to-the-build-enviroment/ADA LOT-EK_1.JPG", scale: 0.3497, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-the-build-enviroment/ADA LOT-EK_2.JPG", scale: 0.4515, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-the-build-enviroment/ADA LOT-EK_3.JPEG", scale: 0.5613, aspectRatio: 0.75 },
-    { path: "images/group-relates-to-the-build-enviroment/Amelyn Ng_1.jpeg", scale: 0.6081, aspectRatio: 0.75 },
-    { path: "images/group-relates-to-the-build-enviroment/Ellie Madsen_2.JPG", scale: 0.5339, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-the-build-enviroment/Jie En Lee_1.jpeg", scale: 0.5324, aspectRatio: 0.6672 },
-    { path: "images/group-relates-to-the-build-enviroment/Kaushik Parashar_1.jpeg", scale: 0.62, aspectRatio: 0.8001 },
-    { path: "images/group-relates-to-the-build-enviroment/Matthew Chung Hei Wong_1.JPG", scale: 0.5187, aspectRatio: 1.5083 },
-    { path: "images/group-relates-to-the-build-enviroment/Tianrun Li_1.jpeg", scale: 0.5114, aspectRatio: 0.75 },
-    { path: "images/group-relates-to-the-build-enviroment/Tianrun Li_2.jpeg", scale: 0.4537, aspectRatio: 0.75 },
-    { path: "images/group-relates-to-the-build-enviroment/Tianrun Li_3.jpeg", scale: 0.4074, aspectRatio: 1.3333 }
+  "Nature": [
+    { path: "images/Nature/Amelyn1.png",                  scale: 0.524,  aspectRatio: 1.0 },
+    { path: "images/Nature/Chih Chia Huang.png",          scale: 0.375,  aspectRatio: 1.0 },
+    { path: "images/Nature/Chih Chia Huang2.png",         scale: 0.530,  aspectRatio: 1.0 },
+    { path: "images/Nature/Claire Anne Galla1.png",       scale: 0.490,  aspectRatio: 1.0 },
+    { path: "images/Nature/Ellie2.png",                   scale: 0.534,  aspectRatio: 1.0 },
+    { path: "images/Nature/Karla Rothstein.png",          scale: 0.475,  aspectRatio: 1.0 },
+    { path: "images/Nature/Michael kai Lok Chan1.png",    scale: 0.484,  aspectRatio: 1.0 },
+    { path: "images/Nature/Min Kim1.png",                 scale: 0.613,  aspectRatio: 1.0 },
+    { path: "images/Nature/Neha Sarah Abraham1.png",      scale: 0.360,  aspectRatio: 1.0 },
+    { path: "images/Nature/Neha Sarah Abraham2.png",      scale: 0.472,  aspectRatio: 1.0 },
+    { path: "images/Nature/Omar Ismail1.png",             scale: 0.356,  aspectRatio: 1.0 },
+    { path: "images/Nature/Omar Ismail2.png",             scale: 0.313,  aspectRatio: 1.0 },
+    { path: "images/Nature/Swezya Joshi1.png",            scale: 0.331,  aspectRatio: 1.0 },
+    { path: "images/Nature/Xiaoxi Chen1.png",             scale: 0.592,  aspectRatio: 1.0 },
+    { path: "images/Nature/Xinyi Yan1.png",               scale: 0.535,  aspectRatio: 1.0 }
   ],
-  "group-relates-to-the-natural-enviroment": [
-    { path: "images/group-relates-to-the-natural-enviroment/Amelyn Ng_4.jpeg", scale: 0.524, aspectRatio: 0.75 },
-    { path: "images/group-relates-to-the-natural-enviroment/Chih Chia Huang_1.jpg", scale: 0.3754, aspectRatio: 0.6667 },
-    { path: "images/group-relates-to-the-natural-enviroment/Chih Chia Huang_2.jpg", scale: 0.5295, aspectRatio: 0.6667 },
-    { path: "images/group-relates-to-the-natural-enviroment/Michael Kai Lok Chan_1.jpg", scale: 0.4843, aspectRatio: 0.6667 },
-    { path: "images/group-relates-to-the-natural-enviroment/Min Kim_1.jpeg", scale: 0.6127, aspectRatio: 0.75 },
-    { path: "images/group-relates-to-the-natural-enviroment/Neha Sarah Abraham_1.jpeg", scale: 0.3601, aspectRatio: 0.5625 },
-    { path: "images/group-relates-to-the-natural-enviroment/Neha Sarah Abraham_2.jpeg", scale: 0.4717, aspectRatio: 0.5625 },
-    { path: "images/group-relates-to-the-natural-enviroment/Omar Ihab Ismail_1.jpeg", scale: 0.3562, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-the-natural-enviroment/Omar Ihab Ismail_2.jpeg", scale: 0.3131, aspectRatio: 0.93 },
-    { path: "images/group-relates-to-the-natural-enviroment/Swezya Joshi_1.JPG", scale: 0.3306, aspectRatio: 0.5677 },
-    { path: "images/group-relates-to-the-natural-enviroment/xiaoxi chen_2.jpg", scale: 0.5921, aspectRatio: 0.75 }
+  "People": [
+    { path: "images/People/Amelyn3.png",                  scale: 0.598,  aspectRatio: 1.0 },
+    { path: "images/People/Emily Brooks Geldermann1.png", scale: 0.574,  aspectRatio: 1.0 },
+    { path: "images/People/Emily Brooks Geldermann2.png", scale: 0.420,  aspectRatio: 1.0 },
+    { path: "images/People/Fion Li1.png",                 scale: 0.568,  aspectRatio: 1.0 },
+    { path: "images/People/Fion Li2.png",                 scale: 0.514,  aspectRatio: 1.0 },
+    { path: "images/People/Georgios Koltiris1.png",       scale: 0.500,  aspectRatio: 1.0 },
+    { path: "images/People/Nichole Quah1.png",            scale: 0.221,  aspectRatio: 1.0 },
+    { path: "images/People/Nichole Quah2.png",            scale: 0.220,  aspectRatio: 1.0 },
+    { path: "images/People/Roxana Liu.png",               scale: 0.618,  aspectRatio: 1.0 },
+    { path: "images/People/Wyatt Kuebler1.png",           scale: 0.419,  aspectRatio: 1.0 },
+    { path: "images/People/Xiaoxi Chen2.png",             scale: 0.584,  aspectRatio: 1.0 }
   ],
-  "group-relates-to-waste": [
-    { path: "images/group-relates-to-waste/Isabel Amber Lewis_1.jpg", scale: 0.5811, aspectRatio: 1.5 },
-    { path: "images/group-relates-to-waste/Isabel Amber Lewis_3.jpg", scale: 0.5951, aspectRatio: 1.5 },
-    { path: "images/group-relates-to-waste/Shannon Shiraz Levkovitz_1.jpeg", scale: 0.4639, aspectRatio: 1.3333 },
-    { path: "images/group-relates-to-waste/Shannon Shiraz Levkovitz_2.jpeg", scale: 0.5056, aspectRatio: 0.5625 }
+  "Waste": [
+    { path: "images/Waste/Isabel Amber Lewis1.png",           scale: 0.581,  aspectRatio: 1.0 },
+    { path: "images/Waste/Isabel Amber Lewis2.png",           scale: 0.595,  aspectRatio: 1.0 },
+    { path: "images/Waste/Shannon Shiraz Lekovitz 1.png",     scale: 0.464,  aspectRatio: 1.0 },
+    { path: "images/Waste/Shannon Shiraz Lekovitz 2.png",     scale: 0.506,  aspectRatio: 1.0 }
   ]
 };
