@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Scatter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #F9F9F9;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    #ui {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    #ui button {
+      appearance: none;
+      background: transparent;
+      border: none;
+      color: #1a1a1a;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 4px 0;
+      text-transform: uppercase;
+      transition: opacity 0.12s;
+    }
+
+    #ui button::before { content: "[ "; }
+    #ui button::after  { content: " ]"; }
+
+    #ui button:hover   { opacity: 0.55; }
+    #ui button:active  { opacity: 0.35; }
+
+    #ui button:disabled {
+      opacity: 0.22;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ── TEMPORARY MONOCHROME ─────────────────────────────────────────────────
+       Remove this entire block to restore full color.                    ──── */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: white;
+      mix-blend-mode: saturation;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    /* ── END MONOCHROME ───────────────────────────────────────────────────── */
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <div id="ui">
+    <button id="btn-generate">Generate</button>
+    <button id="btn-export" disabled>Save PNG</button>
+    <button id="btn-groups">Group Number</button>
+  </div>
+
+  <!-- Matter.js via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
