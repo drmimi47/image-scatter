@@ -10,14 +10,16 @@ export const imageGroups = {
     { path: "images/Building/Matthew Chung Hei Wong1.png",scale: 0.519,  aspectRatio: 1.0 },
     { path: "images/Building/Tianrun Li1.png",            scale: 0.511,  aspectRatio: 1.0 },
     { path: "images/Building/Tianrun Li2.png",            scale: 0.454,  aspectRatio: 1.0 },
-    { path: "images/Building/Tianrun Li3.png",            scale: 0.407,  aspectRatio: 1.0 }
+    { path: "images/Building/Tianrun Li3.png",            scale: 0.407,  aspectRatio: 1.0 },
+    { path: "images/Building/Vic Chen1.png",              scale: 0.500,  aspectRatio: 1.0 }
   ],
   "Light": [
     { path: "images/Light/Amelyn2.png",                   scale: 0.598,  aspectRatio: 1.0 },
     { path: "images/Light/Hao Ni1.png",                   scale: 0.432,  aspectRatio: 1.0 },
     { path: "images/Light/Jialin yue1.png",               scale: 0.332,  aspectRatio: 1.0 },
     { path: "images/Light/Mariami Maghiakelidze1.png",     scale: 0.585,  aspectRatio: 1.0 },
-    { path: "images/Light/Xinyi Yan2.png",                 scale: 0.579,  aspectRatio: 1.0 }
+    { path: "images/Light/Xinyi Yan2.png",                 scale: 0.579,  aspectRatio: 1.0 },
+    { path: "images/Light/Fern Sripongtanakul.png",        scale: 0.500,  aspectRatio: 1.0 }
   ],
   "Nature": [
     { path: "images/Nature/Amelyn1.png",                  scale: 0.524,  aspectRatio: 1.0 },
@@ -34,7 +36,8 @@ export const imageGroups = {
     { path: "images/Nature/Omar Ismail2.png",             scale: 0.313,  aspectRatio: 1.0 },
     { path: "images/Nature/Swezya Joshi1.png",            scale: 0.331,  aspectRatio: 1.0 },
     { path: "images/Nature/Xiaoxi Chen1.png",             scale: 0.592,  aspectRatio: 1.0 },
-    { path: "images/Nature/Xinyi Yan1.png",               scale: 0.535,  aspectRatio: 1.0 }
+    { path: "images/Nature/Xinyi Yan1.png",               scale: 0.535,  aspectRatio: 1.0 },
+    { path: "images/Nature/Hilary Kusuma.png",            scale: 0.500,  aspectRatio: 1.0 }
   ],
   "People": [
     { path: "images/People/Amelyn3.png",                  scale: 0.598,  aspectRatio: 1.0 },
@@ -47,7 +50,8 @@ export const imageGroups = {
     { path: "images/People/Nichole Quah2.png",            scale: 0.220,  aspectRatio: 1.0 },
     { path: "images/People/Roxana Liu.png",               scale: 0.618,  aspectRatio: 1.0 },
     { path: "images/People/Wyatt Kuebler1.png",           scale: 0.419,  aspectRatio: 1.0 },
-    { path: "images/People/Xiaoxi Chen2.png",             scale: 0.584,  aspectRatio: 1.0 }
+    { path: "images/People/Xiaoxi Chen2.png",             scale: 0.584,  aspectRatio: 1.0 },
+    { path: "images/People/Vic Chen2.png",                scale: 0.500,  aspectRatio: 1.0 }
   ],
   "Waste": [
     { path: "images/Waste/Isabel Amber Lewis1.png",           scale: 0.581,  aspectRatio: 1.0 },
