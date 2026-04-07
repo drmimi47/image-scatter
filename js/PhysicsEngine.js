@@ -81,7 +81,7 @@ export class PhysicsEngine {
     // Physics body is inset — controls maximum visual overlap between cards.
     // At 0.78 each image sticks out ~11% past its body on every side,
     // so two touching bodies produce at most ~22% image overlap.
-    const BODY_SCALE = 0.78;
+    const BODY_SCALE = 0.81; //0.78 orignal overlap size
     const bodyW = cardW * BODY_SCALE;
     const bodyH = cardH * BODY_SCALE;
 

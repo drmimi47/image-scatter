@@ -29,8 +29,9 @@ OUT_FILE    = Path("js/manifest.js")
 # Auto-discover: every direct subdirectory of IMAGES_ROOT, sorted alphabetically.
 GROUPS = sorted(p.name for p in IMAGES_ROOT.iterdir() if p.is_dir())
 BASE_SIZE   = 0.4
-SCALE_MIN   = 0.55  # scale factor for the least complex image (fewest unique colors)
-SCALE_MAX   = 1.55  # scale factor for the most complex image (most unique colors)
+SCALE_MIN   = 0.65  # original: 0.55 scale factor for the least complex image (fewest unique colors)
+SCALE_MAX   = 1.65  # original: 1.55 scale factor for the most complex image (most unique colors)
+SCALE_FLOOR = 0.40  # new feature: absolute minimum final scale — lifts outliers like near-monochrome images
 THUMB_SIZE  = (100, 100)
 
 
@@ -107,7 +108,7 @@ def normalize(count):
     return SCALE_MIN + t * (SCALE_MAX - SCALE_MIN)
 
 for r in records:
-    r["scale"] = round(BASE_SIZE * normalize(r["color_count"]), 4)
+    r["scale"] = round(max(SCALE_FLOOR, BASE_SIZE * normalize(r["color_count"])), 4)
 
 # ── Build imageGroups dict ────────────────────────────────────────────────────
 

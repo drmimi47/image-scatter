@@ -16,13 +16,16 @@ const imageCache = new Map(); // path → HTMLImageElement
 const bodies     = [];        // { body, img, w, h }
 
 // ─── Frame geometry ───────────────────────────────────────────────────────────
-// Outer rect: 33 × 22.75 in.  Inner rect: inset by FRAME_OFFSET on all sides.
-// Images are contained within the INNER rect — that is the physics boundary.
+// Outer rect: 33 × 22.75 in.
+// Inner rect: 33 × 20.75 in — flush with outer on all three sides except the
+// bottom, which carries the full 2" gap.  Images are physically contained
+// within the inner rect (the physics boundary).
 
-const FRAME_W      = 33;
-const FRAME_H      = 22.75;
-const FRAME_OFFSET = 0.5;     // inches; inner rect is (32 × 21.75 in)
-const FRAME_MARGIN = 48;      // min px gap between outer rect and viewport edge
+const FRAME_W           = 33;
+const FRAME_H           = 22.75;
+const FRAME_MARGIN      = 48;    // min px gap between outer rect and viewport edge
+const FRAME_GUTTER      = 0.5;   // inches — visible gutter inset from outer border on all sides (32 × 21.75 in)
+const INNER_H_IN        = 20.75; // inches — bottom of physics boundary, measured from outer top edge (2" gap at bottom)
 
 function computeFrame(viewW, viewH) {
   const scale  = Math.min(
@@ -35,15 +38,24 @@ function computeFrame(viewW, viewH) {
   const outerX = (viewW - outerW) / 2;
   const outerY = (viewH - outerH) / 2;
 
-  const gap    = FRAME_OFFSET * scale;
-  const innerX = outerX + gap;
-  const innerY = outerY + gap;
-  const innerW = outerW - gap * 2;
-  const innerH = outerH - gap * 2;
+  const gutter = FRAME_GUTTER * scale;
+  const gutterX = outerX + gutter;
+  const gutterY = outerY + gutter;
+  const gutterW = outerW - gutter * 2;
+  const gutterH = outerH - gutter * 2;
+
+  // Left, right, top: respect the gutter boundary.
+  // Bottom: fixed by INNER_H_IN measured from the outer top edge.
+  const innerX      = gutterX;
+  const innerY      = gutterY;
+  const innerW      = gutterW;
+  const innerBottomY = outerY + INNER_H_IN * scale;
+  const innerH      = innerBottomY - gutterY;
 
   return {
-    outer: { x: outerX, y: outerY, w: outerW, h: outerH },
-    inner: { x: innerX, y: innerY, w: innerW, h: innerH },
+    outer:  { x: outerX,  y: outerY,  w: outerW,  h: outerH  },
+    gutter: { x: gutterX, y: gutterY, w: gutterW, h: gutterH },
+    inner:  { x: innerX,  y: innerY,  w: innerW,  h: innerH  },
     pxPerIn: scale, // logical pixels per inch
   };
 }
@@ -214,23 +226,16 @@ async function scatter() {
 }
 
 // ─── Export (300 dpi) ─────────────────────────────────────────────────────────
-// Renders the inner-frame contents to an off-screen canvas at 300 dpi.
-// Inner frame = (FRAME_W - 2×FRAME_OFFSET) × (FRAME_H - 2×FRAME_OFFSET) inches
-//             = 32 × 21.75 in → 9600 × 6525 px at 300 dpi.
+// Renders the innermost physics boundary to an off-screen canvas at 300 dpi.
+// Inner frame = 32 × 20.25 in → 9600 × 6075 px at 300 dpi.
 
 async function exportHighRes() {
   const includeBorder = confirm("Include frame border in the exported PNG?");
 
-  const INNER_W_IN = FRAME_W - 2 * FRAME_OFFSET; // 32 in
-  const INNER_H_IN = FRAME_H - 2 * FRAME_OFFSET; // 21.75 in
-  const DPI        = 300;
-
-  const exportW = Math.round(INNER_W_IN * DPI); // 9600
-  const exportH = Math.round(INNER_H_IN * DPI); // 6525
-
-  // Scale: logical px in frame.inner → export px
-  // Since frame.inner.w = INNER_W_IN × pxPerIn, exportScale = DPI / pxPerIn
-  const exportScale = exportW / frame.inner.w;
+  const DPI         = 300;
+  const exportScale = DPI / frame.pxPerIn;
+  const exportW     = Math.round(frame.inner.w * exportScale); // 9600 px
+  const exportH     = Math.round(frame.inner.h * exportScale); // 6075 px
 
   const tmp = document.createElement("canvas");
   tmp.width  = exportW;
@@ -307,9 +312,10 @@ function drawScene() {
   ctx.strokeStyle = "#1a1a1a";
   ctx.lineWidth   = 1;
 
-  const { outer, inner } = frame;
-  ctx.strokeRect(outer.x, outer.y, outer.w, outer.h);
-  ctx.strokeRect(inner.x, inner.y, inner.w, inner.h);
+  const { outer, gutter, inner } = frame;
+  ctx.strokeRect(outer.x,  outer.y,  outer.w,  outer.h);
+  ctx.strokeRect(gutter.x, gutter.y, gutter.w, gutter.h);
+  ctx.strokeRect(inner.x,  inner.y,  inner.w,  inner.h);
 
   ctx.restore();
 
